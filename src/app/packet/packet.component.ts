@@ -6,6 +6,7 @@ import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { UserService } from '../services/user.service';
 import { FormsModule } from '@angular/forms';
 import { User } from '../models/user.model';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-packet',
@@ -74,20 +75,31 @@ export class PacketComponent implements OnInit{
     this.mostrarModal = true; // Muestra el modal
   }
 
-  search(){
+  search() {
     console.log(this.searchTerm);
-    this.paquetesSeleccionados.map(packet => {
-    this.userService.assignPacketsToUser(this.searchTerm, packet._id).subscribe({
-      next: (response) => {
-        console.log('Paquete asignado:', response);
-        alert('Paquete asignado correctamente.');
+
+    if (this.paquetesSeleccionados.length === 0) {
+      alert('No hay paquetes seleccionados para asignar.');
+      return;
+    }
+
+    // Crear un array de observables para todas las solicitudes
+    const requests = this.paquetesSeleccionados.map(packet =>
+      this.userService.assignPacketsToUser(this.searchTerm, packet._id)
+    );
+
+    // Ejecutar todas las solicitudes en paralelo
+    forkJoin(requests).subscribe({
+      next: (responses) => {
+        console.log('Todos los paquetes asignados:', responses);
+        alert('Todos los paquetes han sido asignados correctamente.');
         this.mostrarModal = false; // Oculta el modal
       },
       error: (error) => {
-        console.error('Error al asignar paquete:', error);
-        alert('Error al asignar paquete.'); // Muestra un mensaje de error
+        console.error('Error al asignar paquetes:', error);
+        alert('Ocurrió un error al asignar algunos paquetes. Revisa la consola para más detalles.');
+        this.mostrarModal = false; // Oculta el modal
       }
     });
-  });
-}
+  }
 }
