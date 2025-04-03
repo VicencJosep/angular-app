@@ -3,12 +3,13 @@ import { User } from '../models/user.model';
 import { UserService } from '../services/user.service';
 import { UserPackagesComponent } from '../user-packages/user-packages.component';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { CommunicationService } from '../services/communication.service';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import {RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
 
 @Component({
   selector: 'app-user',
-  imports: [CommonModule, FormsModule, MatPaginatorModule, UserPackagesComponent],
+  imports: [CommonModule, MatPaginatorModule, UserPackagesComponent, RouterLink, RouterLinkActive, RouterOutlet],
   templateUrl: './user.component.html',
   styleUrl: './user.component.css',
   standalone: true
@@ -29,7 +30,7 @@ export class UserComponent implements OnInit {
   mostrarModal = false; // Controla la visibilidad del modal
   paquetesSeleccionados: any[] = []; // Almacena los paquetes del usuario seleccionado
 
-  constructor(private cdr: ChangeDetectorRef) {
+  constructor(private cdr: ChangeDetectorRef, private communicationService: CommunicationService) {
     this.usersList = [];
   }
 
@@ -81,6 +82,10 @@ export class UserComponent implements OnInit {
     if (confirmacion) {
       this.eliminarUsuarios(usuariosSeleccionados, 1);
     }
+  }
+  sendUser(usuario: User){
+    this.communicationService.sendUser(usuario);
+    console.log('Usuario enviado:', usuario); // Verifica que el método se está llamando
   }
 
   eliminarUsuarios(usuariosSeleccionados: any[], opcion: number): void {

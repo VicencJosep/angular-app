@@ -21,7 +21,7 @@ export class UserService {
   getUser(id: number): Observable<User>{
     return this.http.get<User>(this.apiUrl+"/"+id);
   }
-
+  
 
    createUser(userData: any): Observable<any> {
     return this.http.post<any>(this.apiUrl, userData);
@@ -63,5 +63,16 @@ export class UserService {
     console.log(`${this.apiUrl}/${userName}/packets`);
     return this.http.post<any>(`${this.apiUrl}/${userName}/packets`, { packetId });
   }
-
+  editUser(_id: string, credentials: { 
+    _id: string; 
+    name: string; 
+    email: string; 
+    password: string; 
+    phone: string; 
+    available: boolean; 
+    packets: string[]; 
+  }): Observable<User> {
+    console.log("credentials:", credentials);
+    return this.http.put<User>(`${this.apiUrl}/${_id}`, credentials); // <-- Se eliminó el `}` extra
+  }
 }

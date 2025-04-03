@@ -22,6 +22,16 @@ export class PacketService {
     createPacket(credentials: { name: string; description: string; status: string }): Observable<any> {
       return this.http.post(this.apiUrl, credentials);
   }
+   editPacket(_id: string|undefined, credentials: { 
+      _id: string; 
+      name: string; 
+      description: string; 
+      status: string; 
+       
+    }): Observable<Packet> {
+      console.log("credentials:", credentials);
+      return this.http.put<Packet>(`${this.apiUrl}/${_id}`, credentials); // <-- Se eliminó el `}` extra
+    }
 
 
 }

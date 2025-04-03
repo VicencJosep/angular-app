@@ -5,12 +5,15 @@ import { CommonModule } from '@angular/common';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { UserService } from '../services/user.service';
 import { FormsModule } from '@angular/forms';
-import { User } from '../models/user.model';
 import { forkJoin } from 'rxjs';
+import { CommunicationService } from '../services/communication.service';
+import { RouterLink } from '@angular/router';
+import { RouterLinkActive } from '@angular/router';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-packet',
-  imports: [CommonModule, MatPaginatorModule, FormsModule],
+  imports: [CommonModule, MatPaginatorModule, FormsModule, RouterLink, RouterLinkActive, RouterOutlet],
   templateUrl: './packet.component.html',
   styleUrl: './packet.component.css'
 })
@@ -23,7 +26,7 @@ export class PacketComponent implements OnInit{
   itemsPerPage = 3; // Elementos por página
   currentPage = 0; // Página actual
   paquetesSeleccionados: Packet[] = []; // Almacena los paquetes del usuario seleccionado
-  constructor(private cdr: ChangeDetectorRef) {}
+  constructor(private cdr: ChangeDetectorRef, private communicationService: CommunicationService) {}
 
   ngOnInit(): void {
     this.obtainPackets();
@@ -48,6 +51,10 @@ export class PacketComponent implements OnInit{
         console.error('Error al obtener paquetes:', error);
       }
     });
+  }
+  sendPacket(packet: Packet){
+    this.communicationService.sendPacket(packet);
+    console.log('Usuario enviado:', packet); // Verifica que el método se está llamando
   }
 
   onPageChange(event: PageEvent) {

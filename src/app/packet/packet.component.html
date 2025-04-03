@@ -1,28 +1,32 @@
 <!-- Lista de paquetes paginados -->
 <div>
-<div *ngIf="displayedPackets.length > 0; else noPackets">
-  <table class="table">
-    <tbody>
-      <tr *ngFor="let packet of displayedPackets; trackBy: trackByPacketId">
-        <td class="checkbox-cell">
-          <input type="checkbox" [checked]="packet.seleccionado" (change)="toggleSeleccion(packet)" />
-        </td>
-        <td class="user-info">
-          <p><strong>Nombre:</strong> {{ packet.name }}</p>
-          <p><strong>Descripción:</strong> {{ packet.description }}</p>
-          <p><strong>Estatus:</strong> {{ packet.status }}</p>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <div *ngIf="displayedPackets.length > 0; else noPackets">
+    <table class="table">
+      <tbody>
+        <tr *ngFor="let packet of displayedPackets; trackBy: trackByPacketId">
+          <td class="checkbox-cell">
+            <input type="checkbox" [checked]="packet.seleccionado" (change)="toggleSeleccion(packet)" />
+          </td>
+          <td class="packet-info">
+            <p><strong>Nombre:</strong> {{ packet.name }}</p>
+            <p><strong>Descripción:</strong> {{ packet.description }}</p>
+            <p><strong>Estatus:</strong> {{ packet.status }}</p>
+          </td>
+          <td class="action-buttons">
+            <button class="edit-button" routerLink="/edit-packet-component" routerLinkActive="activebutton" (click)="sendPacket(packet)">Editar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
-</div>
+
 <!-- Mensaje si no hay paquetes -->
 <ng-template #noPackets>
-  <div>No hay paquetes disponibles</div>
+  <div class="no-packets">No hay paquetes disponibles</div>
 </ng-template>
 
-<div>
+<div class="actions-container">
   <a class="button deactivate-button" (click)="confirmarAsignacion()">Asignar Paquetes</a>
 </div>
 
@@ -30,7 +34,7 @@
   <div class="modal-content">
     <h2>Indique el nombre del usuario a quien quiere asignar estos paquetes</h2>
     <div>
-      <input  [(ngModel)]="searchTerm" placeholder="Nombre de usuario..." />
+      <input [(ngModel)]="searchTerm" placeholder="Nombre de usuario..." />
       <button class="close-button" (click)="search()">Buscar</button>
     </div>
   </div>

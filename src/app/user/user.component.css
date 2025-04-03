@@ -1,164 +1,105 @@
-/* Estilo global para la lista de usuarios */
-div {
-  font-family: 'Arial', sans-serif;
-  color: #333;
+.usuario-lista {
+  width: 100%;
+  max-width: 1600px;
+  margin: 10px auto;
 }
 
-/* Estilo del contenedor principal de los usuarios */
-div > div {
-  background-color: #f9f9f9;
-  padding: 15px;
-  margin: 10px 0;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
 }
 
-/* Estilo para los párrafos de la lista */
-div > div p {
-  margin: 8px 0;
-  font-size: 14px;
-  line-height: 1.6;
+.table tr {
+  display: table-row;
 }
 
-/* Títulos para cada campo del usuario */
-div > div p:first-child {
-  font-weight: bold;
-  color: #2d3e50;
+.table td {
+  padding: 12px 15px;
+  border-bottom: 1px solid #e0e0e0;
+  vertical-align: middle;
 }
 
-/* Para el contenedor cuando no hay usuarios */
-#noUsers {
-  text-align: center;
-  font-size: 18px;
-  color: #999;
-  padding: 20px;
-  background-color: #f5f5f5;
+.checkbox-cell {
+  width: 40px;
+}
+
+.user-info {
+  width: auto;
+  word-wrap: break-word;
+}
+
+/* Contenedor de los botones de acción */
+.action-buttons {
+  width: 250px;
+  text-align: right;
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+/* Botón "Ver Paquetes" */
+.view-packages-button {
+  background-color: #ff9100;
+  color: white;
+  border: none;
   border-radius: 5px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-}
-
-/* Resaltar la información de cada usuario */
-div > div p:nth-child(odd) {
-  color: #555;
-}
-
-/* Estilo para el contenedor si hay usuarios */
-div > div:empty {
-  display: none;
-}
-
-/* Adaptación para pantallas más pequeñas */
-@media (max-width: 600px) {
-  div > div {
-    padding: 12px;
-  }
-
-  div > div p {
-    font-size: 13px;
-  }
-
-  #noUsers {
-    font-size: 16px;
-  }
-}
-
-.button {
-  background-color: #557eed;
-  box-shadow: inset 0 1px 0 0 #ffffff;
-  background: #557eed linear-gradient(to bottom, #557eed 5%, #3d50dc 100%);
-  border-radius: 6px;
-  border: 1px solid #dcdcdc;
-  display: inline-block;
+  padding: 8px 12px;
+  font-size: 14px;
   cursor: pointer;
-  color: #666666;
-  font-family: Arial, sans-serif;
-  font-size: 16px;
-  font-weight: bold;
-  padding: 10px 20px;
-  text-decoration: none;
-  text-shadow: 0 1px 0 #ffffff;
-  outline: none;
-  transition: all 0.3s ease;
-  margin-left: 250px;
+  transition: background-color 0.3s ease;
 }
 
+.view-packages-button:hover {
+  background-color: #b37700;
+}
+
+/* Botón "Editar" */
+.edit-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 12px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.edit-button:hover {
+  background-color: #0056b3;
+}
+
+/* Contenedor de los botones de eliminar y desactivar */
+.actions-container {
+  margin-top: 15px;
+  text-align: center;
+}
+
+/* Botón de eliminación */
 .delete-button {
   background: #ff9100 linear-gradient(to bottom, #ff9100 5%, #815117 100%);
   border: none;
   padding: 10px 20px;
   border-radius: 30px;
   color: white;
-  text-shadow: 0 1px 0 #1e7e34;
 }
 
 .delete-button:hover {
   background: #871111 linear-gradient(to bottom, #3c0c00 5%, #3c0003 100%);
 }
 
-.delete-button:active {
-  background: #871111 linear-gradient(to bottom, #ff3300 5%, #6e1318 100%);
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2);
-}
-
+/* Botón de desactivación */
 .deactivate-button {
   background: #1e7e34 linear-gradient(to bottom, #274cb1 5%, #1125bd 100%);
   border: none;
   padding: 10px 20px;
   border-radius: 30px;
   color: white;
-  text-shadow: 0 1px 0 #1e7e34;
 }
 
 .deactivate-button:hover {
   background: #3253cb linear-gradient(to bottom, #122197 5%, #020a62 100%);
-}
-
-.deactivate-button:active {
-  background: #1e7e34 linear-gradient(to bottom, #1e7e34 5%, #155724 100%);
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2);
-}
-
-/* Estilo del contenedor principal de los usuarios */
-.usuario-lista {
-  width: 100%; /* Cambiado de 100% a 80% o el valor que prefieras */
-  max-width: 1600px; /* Añade un máximo ancho si lo deseas */
-  margin: 10px auto; /* Centra el contenedor */
-}
-
-/* Estilo de la tabla */
-.table {
-  width: 100%; /* Mantiene el 100% del contenedor padre (usuario-lista) */
-  border-collapse: collapse;
-  table-layout: fixed;
-}
-
-/* Estilo para las filas */
-.table tr {
-  display: table-row;
-}
-
-/* Estilo para las celdas */
-.table td {
-  padding: 12px 15px;
-  border-bottom: 1px solid #e0e0e0;
-  vertical-align: top; /* Alinea el contenido en la parte superior */
-}
-
-/* Celda del checkbox */
-.checkbox-cell {
-  width: 40px; /* Ancho fijo para el checkbox */
-}
-
-/* Celda de información del usuario */
-.user-info {
-  width: auto; /* Ocupa el espacio disponible */
-  word-wrap: break-word; /* Permite que el texto largo se ajuste */
-}
-
-/* Celda del botón de acción */
-.action-cell {
-  width: 120px; /* Ancho fijo para el botón */
-  text-align: right; /* Alinea el botón a la derecha */
 }
 
 /* Estilo para filas no disponibles */
@@ -169,32 +110,4 @@ div > div:empty {
 .bg-blue td {
   background-color: inherit !important;
   color: white !important;
-}
-
-/* Asegura que el contenedor de la tabla ocupe todo el espacio */
-.usuario-lista > div {
-  width: 100%;
-  display: block;
-}
-
-/* Estilo del botón */
-.view-packages-button {
-  background-color: #ff9100;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  padding: 8px 12px;
-  font-size: 14px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  white-space: nowrap; /* Evita que el texto del botón se divida en varias líneas */
-}
-
-.view-packages-button:hover {
-  background-color: #b37700;
-}
-
-.view-packages-button:focus {
-  outline: none;
-  box-shadow: 0 0 5px rgba(133, 89, 1, 0.5);
 }

@@ -1,0 +1,16 @@
+<div class="edit-container">
+    <form [formGroup]="editForm" (ngSubmit)="editUser()">
+        <h2>Editar Usuario</h2>
+
+        <label for="name">Nombre de Usuario:</label>
+        <input type="text" id="name" formControlName="name" placeholder="{{usuario.name}}">
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" formControlName="email" placeholder="{{usuario.email}}">
+
+        <label for="phone">Teléfono:</label>
+        <input type="text" id="phone" formControlName="phone" placeholder="{{usuario.phone}}">
+
+        <button type="submit" class="button save-button">Guardar Cambios</button>
+    </form>
+</div>

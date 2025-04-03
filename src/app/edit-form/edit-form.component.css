@@ -1,0 +1,76 @@
+
+
+/* Contenedor principal */
+.edit-container {
+  width: 350px;
+  padding: 20px;
+  position: absolute;
+  right: 10%;
+  top: 50%;
+  transform: translateY(-50%);
+  border-radius: 10px;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+  background-color: #ffffff;
+  margin-top: 85px;
+  margin-right: 400px;
+}
+
+/* Título */
+.edit-container h2 {
+  text-align: center;
+  font-family: 'Arial', sans-serif;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+/* Formulario */
+.edit-container form {
+  display: flex;
+  flex-direction: column;
+}
+
+.edit-container label {
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+/* Inputs */
+.edit-container input {
+  margin-bottom: 15px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Botón de guardar */
+.save-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 12px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-weight: bold;
+}
+
+.save-button:hover {
+  background-color: #0056b3;
+}
+
+.save-button:active {
+  background-color: #004085;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .edit-container {
+    width: 90%;
+    right: 5%;
+  }
+}

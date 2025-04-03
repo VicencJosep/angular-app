@@ -1,6 +1,7 @@
 <ng-template #noUsers>
   <div>No hay usuarios disponibles</div>
 </ng-template>
+
 <div class="usuario-lista">
   <div *ngIf="usersList.length > 0; else noUsers">
     <table class="table">
@@ -14,9 +15,9 @@
             <p>Teléfono del usuario: {{ usuario.phone }}</p>
             <p>Email del usuario: {{ usuario.email }}</p>
           </td>
-          <td>
-            <!-- Botón para ver paquetes -->
+          <td class="action-buttons">
             <button class="view-packages-button" (click)="verPaquetes(usuario)">Ver Paquetes</button>
+            <button class="edit-button" routerLink="/edit-component" routerLinkActive="activebutton" (click)="sendUser(usuario)" >Editar</button>
           </td>
         </tr>
       </tbody>
@@ -24,7 +25,7 @@
   </div>
 </div>
 
-<div>
+<div class="actions-container">
   <a class="button delete-button" (click)="confirmarEliminacion()">Eliminar Usuarios Seleccionados</a>
   <a class="button deactivate-button" (click)="desactivarUsuarios()">Desactivar Usuarios Seleccionados</a>
 </div>
