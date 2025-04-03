@@ -48,7 +48,7 @@ export class RegisterFormComponent {
       this.userService.createUser2(userData).subscribe({
         next: (response) => {
           console.log('Usuario exitoso:', response);
-          
+          alert('Usuario registrado exitosamente');
         },
         error: (error) => {
           console.error('Error en el registro:', error);
@@ -67,7 +67,7 @@ export class RegisterFormComponent {
         this.packetService.createPacket(packetData).subscribe({
           next: (response) => {
             console.log('Paquete exitoso:', response);
-            
+            alert('Paquete registrado exitosamente');
           },
           error: (error) => {
             console.error('Error en el login:', error);
