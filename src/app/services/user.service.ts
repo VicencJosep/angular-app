@@ -21,7 +21,7 @@ export class UserService {
   getUser(id: number): Observable<User>{
     return this.http.get<User>(this.apiUrl+"/"+id);
   }
-  
+
 
    createUser(userData: any): Observable<any> {
     return this.http.post<any>(this.apiUrl, userData);
@@ -45,8 +45,8 @@ export class UserService {
 
 
   deactivateUsuario(id: number, user: User): Observable<any> {
-      user.available = false; // Cambia el estado a no disponible
-      return this.http.put(`${this.apiUrl}/${id}`, { available: false }).pipe(
+      console.log(user.available); // Verifica el valor de user.available
+      return this.http.put(`${this.apiUrl}/${id}/deactivate`, { available: false}).pipe(
           tap(response => console.log('Server response:', response)) // Escribe la respuesta en la consola
       );
   }
@@ -63,14 +63,14 @@ export class UserService {
     console.log(`${this.apiUrl}/${userName}/packets`);
     return this.http.post<any>(`${this.apiUrl}/${userName}/packets`, { packetId });
   }
-  editUser(_id: string, credentials: { 
-    _id: string; 
-    name: string; 
-    email: string; 
-    password: string; 
-    phone: string; 
-    available: boolean; 
-    packets: string[]; 
+  editUser(_id: string, credentials: {
+    _id: string;
+    name: string;
+    email: string;
+    password: string;
+    phone: string;
+    available: boolean;
+    packets: string[];
   }): Observable<User> {
     console.log("credentials:", credentials);
     return this.http.put<User>(`${this.apiUrl}/${_id}`, credentials); // <-- Se eliminó el `}` extra
