@@ -49,9 +49,11 @@ export class EditFormComponent implements OnInit {
     this.userService.editUser(updatedUser._id, updatedUser).subscribe(
       (response) => {
         console.log('Usuario editado:', response);
+        alert('Usuario editado exitosamente');
       },
       (error) => {
         console.error('Error al editar usuario:', error);
+        alert('Error al editar el usuario, verifica tus credenciales');
       }
     );
   }
