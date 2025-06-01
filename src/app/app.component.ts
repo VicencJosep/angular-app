@@ -1,23 +1,39 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { LeftBoxComponent } from "./left-box/left-box.component";
-import { RegisterButtonComponent } from './register-button/register-button.component';
-import { RegisterFormComponent } from './register-form/register-form.component';
 import { HeaderComponent } from "./header/header.component";
-import { RouterOutlet } from '@angular/router';
 import { MatPaginatorModule } from '@angular/material/paginator';
-
+import { LoginComponent } from './login/login.component';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
-  imports: [LeftBoxComponent, HeaderComponent, MatPaginatorModule],
+  imports: [LeftBoxComponent, HeaderComponent, MatPaginatorModule, LoginComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent {
-  title = 'angular-app';
+export class AppComponent implements OnInit {
+  authService = inject(AuthService);
   loggedIn = false;
+
+  ngOnInit() {
+    // Intenta refrescar el token si no está autenticado
+    if (!this.authService.isAuthenticated()) {
+      this.authService.refreshToken().subscribe({
+        next: (res) => {
+          this.authService.setAccessToken(res.accessToken);
+          this.loggedIn = true;
+        },
+        error: () => {
+          this.authService.logout();
+          this.loggedIn = false;
+        }
+      });
+    } else {
+      this.loggedIn = true;
+    }
+  }
+
   getLoggedIn(loggedIn: boolean) {
-    alert(loggedIn);
     this.loggedIn = loggedIn;
   }
 }

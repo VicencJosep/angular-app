@@ -77,6 +77,30 @@ body {
   border-radius: 30px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
+/* Botón de logout */
+.logout-button {
+  position: absolute;
+  top: 20px;       /* Distancia desde la parte superior */
+  right: 30px;     /* Distancia desde la derecha */
+  background-color: #e74c3c; /* Rojo */
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 30px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-right: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  z-index: 1000; /* Asegura que esté por encima de otros elementos */
+}
+
+.logout-button:hover {
+  background-color: #c0392b; /* Rojo más oscuro en hover */
+  transform: scale(1.05);    /* Ligero zoom al pasar el ratón */
+}
+
 
 input {
   border: none;

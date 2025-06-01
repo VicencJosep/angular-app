@@ -94,7 +94,7 @@ export class UserComponent implements OnInit {
         this.userService.deleteUsuario(usuario._id).subscribe({
           next: () => {
             console.log(`Usuario con ID ${usuario._id} eliminado.`);
-            this.usersList = this.usersList.filter(u => u._id !== usuario._id); // Eliminamos el usuario de la lista local
+            this.usersList = this.usersList.filter(u => u.id !== usuario._id); // Eliminamos el usuario de la lista local
             this.displayedUsers = [...this.usersList]; // Actualizamos la lista mostrada
             this.cdr.detectChanges(); // Forzamos la detección de cambios para actualizar el DOM
           },
@@ -106,7 +106,7 @@ export class UserComponent implements OnInit {
         this.userService.deactivateUsuario(usuario._id, usuario).subscribe({
           next: (usuarioModificado) => {
             console.log(`Usuario con ID ${usuario._id} eliminado. ${usuario.available}`);
-            const index = this.usersList.findIndex(u => u._id === usuarioModificado._id);
+            const index = this.usersList.findIndex(u => u.id === usuarioModificado._id);
             if (index !== -1) {
               this.usersList[index] = usuarioModificado; // Actualizamos el usuario en la lista
             }
@@ -139,7 +139,7 @@ export class UserComponent implements OnInit {
 
   verPaquetes(usuario: User): void {
     console.log('Usuario seleccionado:', usuario); // Verifica que el método se está llamando
-    this.userService.getPaquetesUsuario(usuario._id!).subscribe({
+    this.userService.getPaquetesUsuario(usuario.id!).subscribe({
       next: (paquetes) => {
         console.log('Paquetes obtenidos del backend:', paquetes); // Verifica los datos obtenidos
         this.paquetesSeleccionados = paquetes; // Asigna los paquetes obtenidos

@@ -1,0 +1,31 @@
+<div class="header-container">
+  <img src="logoTrackIt.jpg" alt="Track It Logo" class="header-logo">
+  <div class="search-container">
+    <h1 class="title">TRACK-IT BACK OFFICE</h1>
+  </div>
+</div>
+<div class = "container">
+    <div *ngIf="isLoading">
+        <p>Cargando...</p>
+      </div>
+    <div *ngIf="!isLoading">
+        <form [formGroup]="formularioLogin" (ngSubmit)="login()">
+            <h1>Login</h1>
+            <div class="mb-3">
+            <label for="email" class="form-label">Email:  </label>
+            <input [ngClass]="{'is-invalid': hasError('email','required') || hasError('email','email')}"
+            type="email" class="form-control" id="email" formControlName="email">
+            <div class="text-danger" *ngIf="hasError('email','required')">Email requerido.</div>
+            <div class="text-danger" *ngIf="hasError('email','email')">Email inválido.</div>
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Password:  </label>
+                <input [ngClass]="{'is-invalid': hasError('password','required') || hasError('password','minlength')}"
+                type="password" class="form-control" id="Password" formControlName="password">
+                <div class="text-danger" *ngIf="hasError('password','required')">Contraseña requerida.</div>
+                <div class="text-danger" *ngIf="hasError('password','minlength')">Contraseña inválida, tiene menos de 8 carácteres.</div>
+            </div>
+            <button type="submit" class="btn btn-primary">Login</button>
+        </form>
+    </div>
+</div>

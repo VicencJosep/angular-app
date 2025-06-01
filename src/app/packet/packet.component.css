@@ -41,7 +41,7 @@ div > div p:first-child {
 
 /* Resaltar la información de cada usuario */
 div > div p:nth-child(odd) {
-  color: #555;
+  color: #fffefe;
 }
 
 /* Estilo para el contenedor si hay usuarios */
@@ -72,10 +72,9 @@ div > div:empty {
   border: 1px solid #dcdcdc;
   display: inline-block;
   cursor: pointer;
-  color: #666666;
+  color: #fcfcfc;
   font-family: Arial, sans-serif;
   font-size: 16px;
-  font-weight: bold;
   padding: 10px 20px;
   text-decoration: none;
   text-shadow: 0 1px 0 #ffffff;

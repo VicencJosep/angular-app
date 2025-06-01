@@ -1,6 +1,13 @@
-<app-header></app-header>
 
-<app-left-box></app-left-box>
+@if(loggedIn)
+{
+    <app-header></app-header>
+    <app-left-box></app-left-box>
+}
+@else  {
+    <app-login (exportLoggedIn)="getLoggedIn($event)"></app-login>
+}
+
 
 <!-- The routed views render in the <router-outlet>-->
 

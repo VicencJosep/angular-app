@@ -64,7 +64,7 @@ export class UserService {
     return this.http.post<any>(`${this.apiUrl}/${userName}/packets`, { packetId });
   }
   editUser(_id: string, credentials: {
-    _id: string;
+    id: string;
     name: string;
     email: string;
     password: string;

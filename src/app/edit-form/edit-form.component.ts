@@ -24,20 +24,20 @@ export class EditFormComponent implements OnInit {
 
     });
     this.editForm = this.fb.group({
-      
+
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       phone: ['', Validators.required],
     });
   }
   editUser() {
-    if (!this.usuario._id) {
+    if (!this.usuario.id) {
       console.error("Error: el usuario no tiene un ID válido.");
       return;
     }
-  
-    const updatedUser: { _id: string; name: string; email: string; password: string; phone: string; available: boolean; packets: string[] } = {
-      _id: this.usuario._id, // Ahora estamos seguros de que _id es una string
+
+    const updatedUser: { id: string; name: string; email: string; password: string; phone: string; available: boolean; packets: string[] } = {
+      id: this.usuario.id, // Ahora estamos seguros de que _id es una string
       name: this.editForm.value.name || this.usuario.name,
       email: this.editForm.value.email || this.usuario.email,
       password: this.usuario.password, // No modificar la contraseña
@@ -45,8 +45,8 @@ export class EditFormComponent implements OnInit {
       available: this.usuario.available,
       packets: this.usuario.packets
     };
-  
-    this.userService.editUser(updatedUser._id, updatedUser).subscribe(
+
+    this.userService.editUser(updatedUser.id, updatedUser).subscribe(
       (response) => {
         console.log('Usuario editado:', response);
         alert('Usuario editado exitosamente');
@@ -57,7 +57,7 @@ export class EditFormComponent implements OnInit {
       }
     );
   }
-  
+
   onSubmit(): void {
     if (this.editForm.valid) {
       console.log('Formulario enviado:', this.editForm.value);

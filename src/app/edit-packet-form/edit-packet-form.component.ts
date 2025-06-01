@@ -61,5 +61,5 @@ export class EditPacketFormComponent {
       // Lógica adicional para guardar los cambios
     }
   }
-  
+
 }

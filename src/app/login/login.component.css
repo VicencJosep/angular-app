@@ -1,0 +1,184 @@
+.container {
+    width: 100%;
+    max-width: 400px;
+    margin: 40px auto;
+    padding: 32px 24px;
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 4px 24px rgba(30, 136, 229, 0.10), 0 1.5px 6px rgba(30, 136, 229, 0.08);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1 {
+    color: #1e88e5;
+    margin-bottom: 24px;
+    font-size: 2rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.form-label {
+    font-weight: 500;
+    color: #1e88e5;
+    margin-bottom: 6px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 16px;
+    margin-bottom: 8px;
+    transition: border-color 0.2s;
+}
+
+.form-control:focus {
+    border-color: #1e88e5;
+    outline: none;
+}
+
+.is-invalid {
+    border-color: #ff9100 !important;
+    background-color: #fff3e0;
+}
+
+.text-danger {
+    color: #ff9100;
+    font-size: 13px;
+    margin-bottom: 4px;
+    text-align: left;
+}
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.btn-primary {
+    background:#ff9100 linear-gradient(to bottom, #ff9100 5%, #b37700 100%);
+    border: none;
+    padding: 10px 24px;
+    border-radius: 30px;
+    color: white;
+    font-size: 16px;
+    font-weight: 500;
+    margin-top: 18px;
+    margin-bottom: 10px;
+    align-self: center;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.btn-primary:hover {
+    background: #b37700 linear-gradient(to bottom, #b37700 5%, #ff9100 100%);
+}
+
+button {
+    margin-top: 10px;
+    padding: 10px 24px;
+    border-radius: 30px;
+    border: none;
+    background: #ff9100 linear-gradient(to bottom, #ff9100 5%, #b37700 100%);
+    color: white;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+button:hover {
+    background: #b37700 linear-gradient(to bottom, #b37700 5%, #ff9100 100%);
+}
+
+.mb-3 {
+    margin-top: 18px;
+    margin-bottom: 12px;
+    width: 100%;
+    text-align: left;
+}
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Arial', sans-serif;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  background-color: #f4f4f4;
+}
+
+/* Contenedor principal del header */
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 10px 20px;
+  position: relative;
+}
+
+/* Agrega esto a tu header.component.css */
+
+.header-logo {
+  border-radius: 50%; /* Forma completamente redondeada */
+  width: 80px;       /* Tamaño ajustable */
+  height: 80px;
+  object-fit: cover;  /* Asegura que la imagen mantenga sus proporciones */
+  border: 3px solid #ffffff; /* Borde elegante */
+  box-shadow: 0 4px 8px rgb(255, 255, 255); /* Sombra suave */
+  transition: all 0.3s ease; /* Transición para efectos hover */
+  background-color: #f8f9fa; /* Color de fondo por si la imagen tiene transparencia */
+}
+
+/* Efecto al pasar el mouse */
+.header-logo:hover {
+  transform: scale(1.05); /* Ligero aumento de tamaño */
+  box-shadow: 0 6px 12px rgb(255, 253, 253);
+  border-color: #3498db; /* Cambio de color del borde */
+}
+
+/* Si prefieres esquinas ligeramente redondeadas en lugar de círculo perfecto */
+.header-logo.soft-rounded {
+  border-radius: 20px; /* Alternativa menos redondeada */
+}
+
+/* Estilo para contenedor si necesitas alineación */
+.header-container {
+  display: flex;
+  align-items: center;
+  gap: 20px; /* Espacio entre logo y texto */
+}
+
+/* Título centrado */
+.title {
+  text-align: center;
+  font-size: 2.5em;
+  color: #333;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(to right, #4facfe, #00f2fe);
+  background-clip: text;
+  color: transparent;
+}
+
+/* Contenedor de búsqueda */
+.search-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+@media (max-width: 500px) {
+    .container {
+        padding: 16px 6px;
+        max-width: 98vw;
+    }
+    h1 {
+        font-size: 1.3rem;
+    }
+}

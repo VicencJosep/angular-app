@@ -13,7 +13,7 @@ import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-packet',
-  imports: [CommonModule, MatPaginatorModule, FormsModule, RouterLink, RouterLinkActive, RouterOutlet],
+  imports: [CommonModule, MatPaginatorModule, FormsModule, RouterLink, RouterLinkActive],
   templateUrl: './packet.component.html',
   styleUrl: './packet.component.css'
 })
