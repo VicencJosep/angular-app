@@ -26,9 +26,9 @@ export class EditPacketFormComponent {
     });
 
     this.editPacketForm = this.fb.group({
-      name: ['', Validators.required],
-      description: ['', Validators.required],
-      status: ['', Validators.required],
+      name: [this.paquete.name, Validators.required],
+      description: [this.paquete.description, Validators.required],
+      status: [this.paquete.status, Validators.required],
     });
   }
 

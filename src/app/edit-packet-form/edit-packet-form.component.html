@@ -1,17 +1,16 @@
 <div class="edit-container">
     <form [formGroup]="editPacketForm">
       <h2>Editar Paquete</h2>
-  
+
       <label for="name">Nombre del Paquete:</label>
-      <input type="text" id="name" formControlName="name" required placeholder="{{ paquete.name }}">
-  
+      <input type="text" id="name" formControlName="name" required>
+
       <label for="description">Descripción:</label>
-      <input type="text" id="description" formControlName="description" required placeholder="{{ paquete.description }}">
-  
+      <input type="text" id="description" formControlName="description" required>
+
       <label for="status">Estatus:</label>
-      <input type="text" id="status" formControlName="status" required placeholder="{{ paquete.status }}">
-  
+      <input type="text" id="status" formControlName="status" required >
+
       <button type="submit" class="button save-button" (click)="editPacket()">Guardar Cambios</button>
     </form>
   </div>
-  

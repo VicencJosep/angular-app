@@ -91,22 +91,22 @@ export class UserComponent implements OnInit {
   eliminarUsuarios(usuariosSeleccionados: any[], opcion: number): void {
     usuariosSeleccionados.forEach(usuario => {
       if (opcion == 1) {
-        this.userService.deleteUsuario(usuario._id).subscribe({
+        this.userService.deleteUsuario(usuario.id).subscribe({
           next: () => {
-            console.log(`Usuario con ID ${usuario._id} eliminado.`);
-            this.usersList = this.usersList.filter(u => u.id !== usuario._id); // Eliminamos el usuario de la lista local
+            console.log(`Usuario con ID ${usuario.id} eliminado.`);
+            this.usersList = this.usersList.filter(u => u.id !== usuario.id); // Eliminamos el usuario de la lista local
             this.displayedUsers = [...this.usersList]; // Actualizamos la lista mostrada
             this.cdr.detectChanges(); // Forzamos la detección de cambios para actualizar el DOM
           },
           error: (error) => {
-            console.error(`Error al eliminar el usuario con ID ${usuario._id}:`, error);
+            console.error(`Error al eliminar el usuario con ID ${usuario.id}:`, error);
           }
         });
       } else if (opcion === 2) {
-        this.userService.deactivateUsuario(usuario._id, usuario).subscribe({
+        this.userService.deactivateUsuario(usuario.id, usuario).subscribe({
           next: (usuarioModificado) => {
-            console.log(`Usuario con ID ${usuario._id} eliminado. ${usuario.available}`);
-            const index = this.usersList.findIndex(u => u.id === usuarioModificado._id);
+            console.log(`Usuario con ID ${usuario.id} eliminado. ${usuario.available}`);
+            const index = this.usersList.findIndex(u => u.id === usuarioModificado.id);
             if (index !== -1) {
               this.usersList[index] = usuarioModificado; // Actualizamos el usuario en la lista
             }
@@ -114,7 +114,7 @@ export class UserComponent implements OnInit {
             this.cdr.detectChanges(); // Forzamos la detección de cambios para actualizar el DOM
           },
           error: (error) => {
-            console.error(`Error al eliminar el usuario con ID ${usuario._id}:`, error);
+            console.error(`Error al eliminar el usuario con ID ${usuario.id}:`, error);
           }
         });
       }

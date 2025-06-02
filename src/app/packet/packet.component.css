@@ -48,6 +48,11 @@ div > div p:nth-child(odd) {
 div > div:empty {
   display: none;
 }
+.packet-info p {
+  display: block !important;
+  color: #222 !important;
+  margin: 2px 0 8px 0 !important;
+}
 
 /* Adaptación para pantallas más pequeñas */
 @media (max-width: 600px) {
@@ -108,3 +113,29 @@ div > div:empty {
   justify-content: flex-end;
 }
 
+/* ...existing code... */
+
+/* Añade separación horizontal entre las celdas de la tabla */
+.table td {
+  padding: 16px 18px;
+  border-right: 5px solid transparent; /* Espacio visual entre celdas */
+  vertical-align: top;
+
+}
+/* Colorea filas alternas */
+.table tr:nth-child(even) {
+  background-color: #e8f0f9;
+}
+.table tr:nth-child(odd) {
+  background-color: #ffffff;
+}
+
+/* Opcional: añade un poco de espacio vertical entre filas */
+.table tr {
+  border-bottom: 10px solid transparent;
+}
+.checkbox-cell{
+  width: 5px;
+}
+
+/* ...existing code... */

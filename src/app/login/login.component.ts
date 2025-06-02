@@ -4,7 +4,7 @@ import { FormGroup, FormBuilder, ReactiveFormsModule, Validators } from '@angula
 import { AuthService } from '../services/auth.service';
 import { OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -18,6 +18,7 @@ export class LoginComponent implements OnInit {
   authService = inject(AuthService);
   router = inject(Router);
   route = inject(ActivatedRoute);
+  toastr = inject(ToastrService);
 
   @Output() loggedin = new EventEmitter<string>();
   @Output() exportLoggedIn = new EventEmitter<boolean>();
@@ -69,16 +70,22 @@ export class LoginComponent implements OnInit {
 
     this.authService.login(loginData).subscribe({
       next: (response) => {
-        const accessToken = response.accessToken;
-        const refreshToken = response.refreshToken;
+        console.log(response);
+        if (response.user.role === 'admin') {
+          const accessToken = response.accessToken;
+          const refreshToken = response.refreshToken;
 
-        if (accessToken && refreshToken) {
-          localStorage.setItem('access_token', accessToken);
-          localStorage.setItem('refresh_token', refreshToken);
-          this.exportLoggedIn.emit(true);
-          this.router.navigate(['/']); // Redirige si hace falta
+          if (accessToken && refreshToken) {
+            localStorage.setItem('access_token', accessToken);
+            localStorage.setItem('refresh_token', refreshToken);
+
+            this.exportLoggedIn.emit(true);
+            this.router.navigate(['/']); // Redirige si hace falta
+          } else {
+            console.error('Tokens faltantes en la respuesta.');
+          }
         } else {
-          console.error('Tokens faltantes en la respuesta.');
+          this.toastr.error('Solo el administrador tiene acceso al backoffice', 'Acceso denegado');
         }
       },
       error: (error) => {
@@ -87,7 +94,6 @@ export class LoginComponent implements OnInit {
       }
     });
   }
-
   loginWithGoogle(): void {
     this.authService.loginWithGoogle();
   }

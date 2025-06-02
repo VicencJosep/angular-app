@@ -66,7 +66,36 @@
 .save-button:active {
   background-color: #004085;
 }
+.edit-container select {
+  display: block;
+  width: 100%;
+  margin-bottom: 16px;
+  padding: 10px 12px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+select#role {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 16px;
+  margin-bottom: 16px;
+  background: #fff;
+  color: #333;
+  transition: border-color 0.2s;
+  box-sizing: border-box;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
 
+select#role:focus {
+  border-color: #1e88e5;
+  outline: none;
+}
 /* Responsive */
 @media (max-width: 768px) {
   .edit-container {

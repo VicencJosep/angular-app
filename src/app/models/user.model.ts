@@ -6,7 +6,16 @@ export interface User {
   phone: string;
   available: boolean;
   packets: string[];
+  role: "admin" | "user" | "delivery";
+  birthdate: Date;
+  isProfileComplete: boolean;
   seleccionado?: boolean;
+  deliveryProfile?: {
+    assignedPacket: string[];
+    deliveredPackets: string[];
+    vehicle: string;
+  };
+
   }
 export class User implements User {
 

@@ -22,6 +22,7 @@ export class PacketComponent implements OnInit{
   mostrarModal: boolean = false; // Controla la visibilidad del modal
   packetsList: Packet[] = []; // Lista completa de pacquetes
   displayedPackets: Packet[] = []; // Paquetes visibles en la página actual    totalItems = 0; // Número total de elementos
+
   totalItems = 0; // Número total de elementos
   itemsPerPage = 3; // Elementos por página
   currentPage = 0; // Página actual
@@ -41,11 +42,8 @@ export class PacketComponent implements OnInit{
         }));
         this.displayedPackets = this.packetsList; // Actualiza los paquetes mostrados
         this.totalItems = response.totalPackets;
-        console.log(this.packetsList, this.totalItems);
+        console.log(this.displayedPackets, this.totalItems);
         this.cdr.detectChanges();
-        if (this.packetsList.length > 0) {
-          console.log(this.packetsList[0].name); // Ahora no dará error
-        }
       },
       error: (error) => {
         console.error('Error al obtener paquetes:', error);

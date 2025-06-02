@@ -25,9 +25,12 @@ export class EditFormComponent implements OnInit {
     });
     this.editForm = this.fb.group({
 
-      name: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      phone: ['', Validators.required],
+      name: [this.usuario.name, Validators.required],
+      email: [this.usuario.email, [Validators.required, Validators.email]],
+      phone: [this.usuario.phone, Validators.required],
+      password: [this.usuario.password, Validators.required], // Mantener la contraseña actual
+      role: [this.usuario.role, Validators.required],
+      birthdate: [this.usuario.birthdate, Validators.required]
     });
   }
   editUser() {
@@ -36,14 +39,16 @@ export class EditFormComponent implements OnInit {
       return;
     }
 
-    const updatedUser: { id: string; name: string; email: string; password: string; phone: string; available: boolean; packets: string[] } = {
+    const updatedUser: { id: string; name: string; email: string; password: string; phone: string; available: boolean; packets: string[] , role: string,birthdate:Date} = {
       id: this.usuario.id, // Ahora estamos seguros de que _id es una string
       name: this.editForm.value.name || this.usuario.name,
       email: this.editForm.value.email || this.usuario.email,
-      password: this.usuario.password, // No modificar la contraseña
+      password: this.editForm.value.password||this.usuario.password, // No modificar la contraseña
       phone: this.editForm.value.phone || this.usuario.phone,
       available: this.usuario.available,
-      packets: this.usuario.packets
+      packets: this.usuario.packets,
+      role: this.editForm.value.role || this.usuario.role,
+      birthdate: this.editForm.value.birthdate || this.usuario.birthdate
     };
 
     this.userService.editUser(updatedUser.id, updatedUser).subscribe(

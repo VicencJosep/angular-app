@@ -9,6 +9,13 @@
   border-collapse: collapse;
   table-layout: fixed;
 }
+/* Colorea filas alternas */
+.table tr:nth-child(even) {
+  background-color: #e8f0f9;
+}
+.table tr:nth-child(odd) {
+  background-color: #ffffff;
+}
 
 .table tr {
   display: table-row;
@@ -16,7 +23,7 @@
 
 .table td {
   padding: 12px 15px;
-  border-bottom: 1px solid #e0e0e0;
+
   vertical-align: middle;
 }
 
