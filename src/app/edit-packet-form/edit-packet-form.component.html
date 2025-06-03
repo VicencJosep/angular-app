@@ -9,7 +9,11 @@
       <input type="text" id="description" formControlName="description" required>
 
       <label for="status">Estatus:</label>
-      <input type="text" id="status" formControlName="status" required >
+      <select id="status" formControlName="status">
+        <option value="almacén">almacén</option>
+        <option value="reparto">reparto</option>
+        <option value="entregado">entregado</option>
+      </select>
 
       <button type="submit" class="button save-button" (click)="editPacket()">Guardar Cambios</button>
     </form>

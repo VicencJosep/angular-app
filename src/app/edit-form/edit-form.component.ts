@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 import { CommunicationService } from '../services/communication.service';
 import { User } from '../models/user.model';
 import { UserService } from '../services/user.service';
+import { ToastrService } from 'ngx-toastr';
+import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-edit-form',
   standalone: true, // Marca el componente como standalone
@@ -12,9 +14,11 @@ import { UserService } from '../services/user.service';
   styleUrls: ['./edit-form.component.css'],
 })
 export class EditFormComponent implements OnInit {
+  router = inject(Router);
+  route = inject(ActivatedRoute);
   editForm!: FormGroup;
   usuario : User = new User(); // Inicializa el usuario como un objeto vacío
-
+  toastr = inject(ToastrService);
   constructor(private fb: FormBuilder, private communicationService: CommunicationService) {}
   userService = inject(UserService);
   ngOnInit(): void {
@@ -53,12 +57,18 @@ export class EditFormComponent implements OnInit {
 
     this.userService.editUser(updatedUser.id, updatedUser).subscribe(
       (response) => {
+        this.toastr.info('Usuario actualizado correctamente', 'Exitoso',{
+           positionClass: 'toast-top-center'
+        });
+        this.router.navigate(['/packet-component']);
         console.log('Usuario editado:', response);
-        alert('Usuario editado exitosamente');
+
       },
       (error) => {
         console.error('Error al editar usuario:', error);
-        alert('Error al editar el usuario, verifica tus credenciales');
+        this.toastr.error('Error al editar el usuario', 'Error',{
+           positionClass: 'toast-top-center'
+        });
       }
     );
   }
