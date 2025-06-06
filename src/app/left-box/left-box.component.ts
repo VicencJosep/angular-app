@@ -12,9 +12,11 @@ export class LeftBoxComponent {
 
   sendPacketMessage() {
     this.communicationService.sendMessage('packet');
+    this.communicationService.sendPacketsList([]);
   }
 
   sendUserMessage() {
     this.communicationService.sendMessage('user');
+    this.communicationService.sendUsersList([]);
   }
 }

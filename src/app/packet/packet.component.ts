@@ -30,7 +30,15 @@ export class PacketComponent implements OnInit{
   constructor(private cdr: ChangeDetectorRef, private communicationService: CommunicationService) {}
 
   ngOnInit(): void {
-    this.obtainPackets();
+      this.communicationService.currentFilteredPacketList.subscribe(filteredPacketList => {
+      if (filteredPacketList && filteredPacketList.length > 0) {
+        this.packetsList = filteredPacketList;
+        this.displayedPackets = filteredPacketList;
+        console.log('Filtered packets:', this.displayedPackets);
+      } else {
+        this.obtainPackets();
+      }
+    });
   }
   packetService = inject(PacketService);
   userService = inject(UserService);
@@ -58,7 +66,15 @@ export class PacketComponent implements OnInit{
   onPageChange(event: PageEvent) {
     this.currentPage = event.pageIndex;
     this.itemsPerPage = event.pageSize;
-    this.obtainPackets(); // Llama a la función para obtener los paquetes de la nueva página
+      this.communicationService.currentFilteredPacketList.subscribe(filteredPacketList => {
+      if (filteredPacketList && filteredPacketList.length > 0) {
+        this.packetsList = filteredPacketList;
+        this.displayedPackets = filteredPacketList;
+        console.log('Filtered packets:', this.displayedPackets);
+      } else {
+        this.obtainPackets();
+      }
+    });
   }
 
   trackByPacketId(index: number, packet: any): string {

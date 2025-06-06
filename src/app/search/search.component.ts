@@ -49,6 +49,7 @@ export class SearchComponent implements OnInit {
           this.filteredList = packets.filter(packet =>
             packet.description.toLowerCase().includes(this.searchTerm.toLowerCase())
           );
+          this.communicationService.sendUsersList(this.filteredList);
         } else if (!isNaN(Number(this.searchTerm))) {
           this.filteredList = packets.filter(packet =>
             packet.status.toLowerCase().includes(this.searchTerm.toLowerCase())
@@ -64,7 +65,7 @@ export class SearchComponent implements OnInit {
       }
     });
   }
-  
+
   filterUsers(page: number = 1, limit: number = 3): void {
     this.userService.getUsers(page, limit).subscribe({
       next: (response) => {
@@ -73,6 +74,7 @@ export class SearchComponent implements OnInit {
           this.filteredList = users.filter(user =>
             user.email.toLowerCase().includes(this.searchTerm.toLowerCase())
           );
+
         } else if (!isNaN(Number(this.searchTerm))) {
           this.filteredList = users.filter(user =>
             user.phone.toLowerCase().includes(this.searchTerm.toLowerCase())

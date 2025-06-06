@@ -17,7 +17,14 @@ import {RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
 
 export class UserComponent implements OnInit {
   ngOnInit(): void {
-    this.obtenerUsuarios();
+    this.communicationService.currentFilteredUsersList.subscribe(filteredUsersList => {
+      if (filteredUsersList && filteredUsersList.length > 0) {
+        this.usersList = filteredUsersList;
+        this.displayedUsers = filteredUsersList;
+      } else {
+        this.obtenerUsuarios();
+      }
+    });
   }
 
   usuarioSeleccionado: User = new User();
@@ -58,7 +65,14 @@ export class UserComponent implements OnInit {
   onPageChange(event: PageEvent) {
     this.currentPage = event.pageIndex;
     this.itemsPerPage = event.pageSize;
-    this.obtenerUsuarios();
+    this.communicationService.currentFilteredUsersList.subscribe(filteredUsersList => {
+      if (filteredUsersList && filteredUsersList.length > 0) {
+        this.usersList = filteredUsersList;
+        this.displayedUsers = filteredUsersList;
+      } else {
+        this.obtenerUsuarios();
+      }
+    });
   }
 
   trackByUserId(index: number, user: any): string {

@@ -85,12 +85,16 @@ export class LoginComponent implements OnInit {
             console.error('Tokens faltantes en la respuesta.');
           }
         } else {
-          this.toastr.error('Solo el administrador tiene acceso al backoffice', 'Acceso denegado');
+          this.toastr.error('Solo el administrador tiene acceso al backoffice', 'Acceso denegado',{
+           positionClass: 'toast-top-center'
+        });
         }
       },
       error: (error) => {
         console.error('Error en el login:', error);
-        alert('Error en el login, verifica tus credenciales');
+        this.toastr.error('Error login verifique sus credenciales', 'Acceso denegado',{
+           positionClass: 'toast-top-center'
+        });
       }
     });
   }

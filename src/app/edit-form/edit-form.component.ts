@@ -60,7 +60,7 @@ export class EditFormComponent implements OnInit {
         this.toastr.info('Usuario actualizado correctamente', 'Exitoso',{
            positionClass: 'toast-top-center'
         });
-        this.router.navigate(['/packet-component']);
+        this.router.navigate(['/user-component']);
         console.log('Usuario editado:', response);
 
       },
