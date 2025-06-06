@@ -6,7 +6,7 @@ import { CommonModule } from '@angular/common';
 import { CommunicationService } from '../services/communication.service';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import {RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-user',
   imports: [CommonModule, MatPaginatorModule, UserPackagesComponent, RouterLink, RouterLinkActive],
@@ -26,7 +26,7 @@ export class UserComponent implements OnInit {
       }
     });
   }
-
+  toastr = inject(ToastrService);
   usuarioSeleccionado: User = new User();
   usersList: User[] = [];
   displayedUsers: User[] = [];
@@ -53,11 +53,11 @@ export class UserComponent implements OnInit {
         }));
         this.displayedUsers = this.usersList;
         this.totalItems = response.totalUsers;
-        console.log(this.usersList, this.totalItems);
         this.cdr.detectChanges(); // Detecta cambios para actualizar la vista
       },
       error: (error) => {
-        console.error('Error al obtener los usuarios:', error);
+         this.toastr.error('Error al obtener los usuarios', 'Error', {
+          positionClass: 'toast-top-center'});
       }
     });
   }
@@ -86,9 +86,9 @@ export class UserComponent implements OnInit {
 
   confirmarEliminacion(): void {
     const usuariosSeleccionados = this.usersList.filter(usuario => usuario.seleccionado); // Filtra los usuarios seleccionados
-    console.log('Usuarios seleccionados:', usuariosSeleccionados);
     if (usuariosSeleccionados.length === 0) {
-      alert('No hay usuarios seleccionados para eliminar.');
+      this.toastr.error('No hay usuarios seleccionados para eliminar.', 'Error', {
+        positionClass: 'toast-top-center'});
       return;
     }
 
@@ -99,7 +99,6 @@ export class UserComponent implements OnInit {
   }
   sendUser(usuario: User){
     this.communicationService.sendUser(usuario);
-    console.log('Usuario enviado:', usuario); // Verifica que el método se está llamando
   }
 
   eliminarUsuarios(usuariosSeleccionados: any[], opcion: number): void {
@@ -107,19 +106,25 @@ export class UserComponent implements OnInit {
       if (opcion == 1) {
         this.userService.deleteUsuario(usuario.id).subscribe({
           next: () => {
-            console.log(`Usuario con ID ${usuario.id} eliminado.`);
+            this.toastr.info(`Usuario con ID ${usuario.id} eliminado`, 'Exitoso', {
+              positionClass: 'toast-top-center'
+            });
             this.usersList = this.usersList.filter(u => u.id !== usuario.id); // Eliminamos el usuario de la lista local
             this.displayedUsers = [...this.usersList]; // Actualizamos la lista mostrada
             this.cdr.detectChanges(); // Forzamos la detección de cambios para actualizar el DOM
           },
           error: (error) => {
-            console.error(`Error al eliminar el usuario con ID ${usuario.id}:`, error);
+            this.toastr.error(`Error al eliminar el usuario con ID ${usuario.id}`, 'Error', {
+              positionClass: 'toast-top-center'
+            });
           }
         });
       } else if (opcion === 2) {
         this.userService.deactivateUsuario(usuario.id, usuario).subscribe({
           next: (usuarioModificado) => {
-            console.log(`Usuario con ID ${usuario.id} eliminado. ${usuario.available}`);
+            this.toastr.info(`Usuario con ID ${usuario.id} desactivado`, 'Exitoso', {
+              positionClass: 'toast-top-center'
+            });
             const index = this.usersList.findIndex(u => u.id === usuarioModificado.id);
             if (index !== -1) {
               this.usersList[index] = usuarioModificado; // Actualizamos el usuario en la lista
@@ -128,7 +133,9 @@ export class UserComponent implements OnInit {
             this.cdr.detectChanges(); // Forzamos la detección de cambios para actualizar el DOM
           },
           error: (error) => {
-            console.error(`Error al eliminar el usuario con ID ${usuario.id}:`, error);
+            this.toastr.error(`Error al desactivar el usuario con ID ${usuario.id}`, 'Error', {
+              positionClass: 'toast-top-center'
+            });
           }
         });
       }
@@ -137,9 +144,10 @@ export class UserComponent implements OnInit {
 
   desactivarUsuarios(): void {
     const usuariosSeleccionados = this.usersList.filter(usuario => usuario.seleccionado); // Filtra los usuarios seleccionados
-    console.log('Usuarios seleccionados:', usuariosSeleccionados);
     if (usuariosSeleccionados.length === 0) {
-      alert('No hay usuarios seleccionados para eliminar.');
+      this.toastr.error('No hay usuarios seleccionados para desactivar.', 'Error', {
+        positionClass: 'toast-top-center'
+      });
       return;
     }
 
@@ -152,15 +160,15 @@ export class UserComponent implements OnInit {
 
 
   verPaquetes(usuario: User): void {
-    console.log('Usuario seleccionado:', usuario); // Verifica que el método se está llamando
     this.userService.getPaquetesUsuario(usuario.id!).subscribe({
       next: (paquetes) => {
-        console.log('Paquetes obtenidos del backend:', paquetes); // Verifica los datos obtenidos
         this.paquetesSeleccionados = paquetes; // Asigna los paquetes obtenidos
         this.mostrarModal = true; // Muestra el modal
       },
       error: (error) => {
-        console.error('Error al obtener los paquetes:', error); // Verifica si hay un error
+        this.toastr.error('Error al obtener los paquetes del usuario', 'Error', {
+          positionClass: 'toast-top-center'
+        });
       }
     });
   }

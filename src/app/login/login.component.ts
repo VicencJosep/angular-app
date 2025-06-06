@@ -70,7 +70,6 @@ export class LoginComponent implements OnInit {
 
     this.authService.login(loginData).subscribe({
       next: (response) => {
-        console.log(response);
         if (response.user.role === 'admin') {
           const accessToken = response.accessToken;
           const refreshToken = response.refreshToken;
@@ -78,11 +77,15 @@ export class LoginComponent implements OnInit {
           if (accessToken && refreshToken) {
             localStorage.setItem('access_token', accessToken);
             localStorage.setItem('refresh_token', refreshToken);
-
+            this.toastr.success('Bienvenido a trackit backoffice admin.', 'Exitoso', {
+              positionClass: 'toast-top-center'
+            });
             this.exportLoggedIn.emit(true);
             this.router.navigate(['/']); // Redirige si hace falta
           } else {
-            console.error('Tokens faltantes en la respuesta.');
+            this.toastr.error('Error al obtener los tokens de acceso', 'Error de autenticación', {
+              positionClass: 'toast-top-center'
+            });
           }
         } else {
           this.toastr.error('Solo el administrador tiene acceso al backoffice', 'Acceso denegado',{
@@ -91,7 +94,6 @@ export class LoginComponent implements OnInit {
         }
       },
       error: (error) => {
-        console.error('Error en el login:', error);
         this.toastr.error('Error login verifique sus credenciales', 'Acceso denegado',{
            positionClass: 'toast-top-center'
         });

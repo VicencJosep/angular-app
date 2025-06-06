@@ -24,11 +24,8 @@ export class EditFormComponent implements OnInit {
   ngOnInit(): void {
     this.communicationService.currentUser.subscribe((user: User) => {
       this.usuario = user; // Asigna el usuario recibido al objeto usuario
-      console.log('Usuario recibido en el componente:', this.usuario);
-
     });
     this.editForm = this.fb.group({
-
       name: [this.usuario.name, Validators.required],
       email: [this.usuario.email, [Validators.required, Validators.email]],
       phone: [this.usuario.phone, Validators.required],
@@ -39,7 +36,6 @@ export class EditFormComponent implements OnInit {
   }
   editUser() {
     if (!this.usuario.id) {
-      console.error("Error: el usuario no tiene un ID válido.");
       return;
     }
 
@@ -61,11 +57,9 @@ export class EditFormComponent implements OnInit {
            positionClass: 'toast-top-center'
         });
         this.router.navigate(['/user-component']);
-        console.log('Usuario editado:', response);
 
       },
       (error) => {
-        console.error('Error al editar usuario:', error);
         this.toastr.error('Error al editar el usuario', 'Error',{
            positionClass: 'toast-top-center'
         });
@@ -75,7 +69,6 @@ export class EditFormComponent implements OnInit {
 
   onSubmit(): void {
     if (this.editForm.valid) {
-      console.log('Formulario enviado:', this.editForm.value);
       // Lógica adicional para guardar los cambios
     }
   }

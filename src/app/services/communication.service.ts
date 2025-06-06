@@ -17,7 +17,6 @@ export class CommunicationService {
   private userListSource = new BehaviorSubject<User[]>([] as User[]);
   currentFilteredUsersList = this.userListSource.asObservable();
   sendUsersList(users: User[]) {
-    console.log('🔄 Enviando lista de usuarios desde el servicio:', users);
     this.userListSource.next(users);
 
   }
@@ -29,17 +28,14 @@ export class CommunicationService {
   }
 
   sendUser(user: User) {
-    console.log('🔄 Enviando usuario desde el servicio:', user);
     this.userSource.next(user);}
 
   sendMessage(message: string) {
-    console.log('🔄 Enviando mensaje desde el servicio:', message);
     this.messageSource.next(message);
   }
   private packetSource = new BehaviorSubject<Packet>({} as Packet);
   currentPacket = this.packetSource.asObservable();
   sendPacket(packet: Packet) {
-    console.log('🔄 Enviando paquete desde el servicio:', packet);
     this.packetSource.next(packet);
   }
 }

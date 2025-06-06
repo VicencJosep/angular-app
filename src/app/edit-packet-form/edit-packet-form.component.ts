@@ -25,7 +25,6 @@ export class EditPacketFormComponent {
   ngOnInit(): void {
     this.communicationService.currentPacket.subscribe((packet: Packet) => {
       this.paquete = packet; // Asigna el paquete recibido al objeto paquete
-      console.log('Paquete recibido en el componente:', this.paquete);
     });
 
     this.editPacketForm = this.fb.group({
@@ -37,7 +36,6 @@ export class EditPacketFormComponent {
 
   editPacket() {
     if (!this.paquete._id) {
-      console.error("Error: el paquete no tiene un ID válido.");
       return;
     }
 
@@ -54,21 +52,18 @@ export class EditPacketFormComponent {
            positionClass: 'toast-top-center'
 
         });
-        console.log('Paquete editado:', response);
         this.router.navigate(['/packet-component']);
       },
       (error) => {
         this.toastr.error('Error al editar paquete', 'Error',{
            positionClass: 'toast-top-center'
         });
-        console.error('Error al editar paquete:', error);
       }
     );
   }
 
   onSubmit(): void {
     if (this.editPacketForm.valid) {
-      console.log('Formulario enviado:', this.editPacketForm.value);
       // Lógica adicional para guardar los cambios
     }
   }

@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { PacketService } from '../services/packet.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-register-form',
   imports: [CommonModule, ReactiveFormsModule],
@@ -15,7 +15,7 @@ export class RegisterFormComponent {
   registerForm: FormGroup;
   packetForm: FormGroup;
   activeTab: 'user' | 'packet' = 'user'; // Control de pestañas
-
+  toastr= inject(ToastrService);
   constructor(private fb: FormBuilder, private userService: UserService, private packetService: PacketService) {
     // Formulario de Usuario
     this.registerForm = this.fb.group({
@@ -44,15 +44,16 @@ export class RegisterFormComponent {
     if ((this.registerForm.valid)||((this.registerForm.value.name.length>0)&&(this.registerForm.value.packets.length==0)&&(this.registerForm.value.phone.length>0)&&(this.registerForm.value.email.length>0)&&(this.registerForm.value.password.length>0))) {
       const userData = this.registerForm.value;userData.available = true;
       userData.packets = userData.packets || []; // Asegura que sea un array
-      console.log("userData a enviar:", JSON.stringify(userData, null, 2));
       this.userService.createUser2(userData).subscribe({
         next: (response) => {
-          console.log('Usuario exitoso:', response);
-          alert('Usuario registrado exitosamente');
+            this.toastr.success('Usuario registrado exitosamente', 'Exitoso', {
+              positionClass: 'toast-top-center'
+            });
         },
         error: (error) => {
-          console.error('Error en el registro:', error);
-          alert('Error en el usuario, verifica tus credenciales');
+          this.toastr.error('Error en el registro del usuario', 'Error', {
+            positionClass: 'toast-top-center'
+          });
         }
       });
     }
@@ -66,12 +67,14 @@ export class RegisterFormComponent {
       );
         this.packetService.createPacket(packetData).subscribe({
           next: (response) => {
-            console.log('Paquete exitoso:', response);
-            alert('Paquete registrado exitosamente');
+            this.toastr.success('Paquete registrado exitosamente', 'Exitoso', {
+              positionClass: 'toast-top-center'
+            });
           },
           error: (error) => {
-            console.error('Error en el login:', error);
-            alert('Error en el paquete, verifica tus credenciales');
+            this.toastr.error('Error en el registro del paquete', 'Error', {
+              positionClass: 'toast-top-center'
+            });
           }
       });
     }

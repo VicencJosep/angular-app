@@ -7,6 +7,7 @@ import { RegisterButtonComponent } from '../register-button/register-button.comp
 import { AuthService } from '../services/auth.service';
 import { PacketService } from '../services/packet.service';
 import { UserService } from '../services/user.service';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-header',
   imports: [FormsModule, CommonModule, RegisterButtonComponent],
@@ -19,6 +20,7 @@ import { UserService } from '../services/user.service';
 export class HeaderComponent implements OnInit {
   authService = inject(AuthService);
   filteredList: any[] = [];
+  toastr = inject(ToastrService);
   searchTerm: string = '';
   message: string = 'user';
   constructor(@Inject(Router) private router: Router,
@@ -38,7 +40,6 @@ export class HeaderComponent implements OnInit {
       this.filterPackets();
     }
     else{
-      console.log('filtrando usuarios');
       this.filterUsers();
     }
   }
@@ -83,7 +84,9 @@ export class HeaderComponent implements OnInit {
         }
       },
       error: (err) => {
-        console.error('Error fetching packets:', err);
+        this.toastr.error('Error en la búsqueda del paquete', 'Error',{
+           positionClass: 'toast-top-center'
+        });
       }
     });
   }
@@ -124,12 +127,13 @@ export class HeaderComponent implements OnInit {
           this.filteredList = users.filter(user =>
             user.name.toLowerCase().includes(this.searchTerm.toLowerCase())
           );
-          console.log('Filtrando usuarios:', this.filteredList);
           this.communicationService.sendUsersList(this.filteredList);
         }
       },
       error: (err) => {
-        console.error('Error fetching users:', err);
+        this.toastr.error('Error en la búsqueda de usuarios', 'Error',{
+           positionClass: 'toast-top-center'
+        });
       }
     });
   }
@@ -138,7 +142,6 @@ export class HeaderComponent implements OnInit {
     if (this.searchTerm.trim()) {
 
       this.searchTerm = this.searchTerm.toLowerCase(); // Pasa el searchTerm a minúsculas
-      console.log('Buscando:', this.searchTerm);
       this.filter();
       if(this.message === 'packet'){
         this.router.navigate(['/packet-component']);
@@ -153,7 +156,9 @@ export class HeaderComponent implements OnInit {
       this.authService.logout();
       window.location.reload();
     } catch (error) {
-      console.error('Error al cerrar sesión:', error);
+      this.toastr.error('Error al cerrar sesión', 'Error',{
+         positionClass: 'toast-top-center'
+      });
     }
   }
 }

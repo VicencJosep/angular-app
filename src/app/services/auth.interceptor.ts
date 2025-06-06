@@ -11,7 +11,6 @@ import {
   catchError,
   switchMap,
   throwError,
-  of
 } from 'rxjs';
 import { AuthService } from './auth.service';
 
@@ -55,7 +54,6 @@ export function jwtInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn): 
             return next(retryReq);
           }),
           catchError((refreshError) => {
-            console.error('Error al refrescar el token', refreshError);
             authService.logout();
             toastr.error('Su sesión ha expirado.', 'Sesión expirada', {
               timeOut: 3000,

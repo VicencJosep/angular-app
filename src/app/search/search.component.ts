@@ -32,7 +32,6 @@ export class SearchComponent implements OnInit {
     });
   }
   filter(): void {
-    console.log('CommunicationService.sendMessage', this.message);
 
     if(this.message === 'packet'){
       this.filterPackets();
@@ -61,7 +60,6 @@ export class SearchComponent implements OnInit {
         }
       },
       error: (err) => {
-        console.error('Error fetching packets:', err);
       }
     });
   }
@@ -86,7 +84,6 @@ export class SearchComponent implements OnInit {
         }
       },
       error: (err) => {
-        console.error('Error fetching users:', err);
       }
     });
   }

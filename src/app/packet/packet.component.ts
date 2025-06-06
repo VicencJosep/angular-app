@@ -9,7 +9,7 @@ import { forkJoin } from 'rxjs';
 import { CommunicationService } from '../services/communication.service';
 import { RouterLink } from '@angular/router';
 import { RouterLinkActive } from '@angular/router';
-import { RouterOutlet } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-packet',
@@ -18,6 +18,7 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './packet.component.css'
 })
 export class PacketComponent implements OnInit{
+  toastr = inject(ToastrService);
   searchTerm: string = ''; // Término de búsqueda
   mostrarModal: boolean = false; // Controla la visibilidad del modal
   packetsList: Packet[] = []; // Lista completa de pacquetes
@@ -34,7 +35,6 @@ export class PacketComponent implements OnInit{
       if (filteredPacketList && filteredPacketList.length > 0) {
         this.packetsList = filteredPacketList;
         this.displayedPackets = filteredPacketList;
-        console.log('Filtered packets:', this.displayedPackets);
       } else {
         this.obtainPackets();
       }
@@ -50,17 +50,17 @@ export class PacketComponent implements OnInit{
         }));
         this.displayedPackets = this.packetsList; // Actualiza los paquetes mostrados
         this.totalItems = response.totalPackets;
-        console.log(this.displayedPackets, this.totalItems);
         this.cdr.detectChanges();
       },
       error: (error) => {
-        console.error('Error al obtener paquetes:', error);
+        this.toastr.error('Error en la búsqueda del paquete', 'Error',{
+           positionClass: 'toast-top-center'
+        });
       }
     });
   }
   sendPacket(packet: Packet){
     this.communicationService.sendPacket(packet);
-    console.log('Usuario enviado:', packet); // Verifica que el método se está llamando
   }
 
   onPageChange(event: PageEvent) {
@@ -70,7 +70,6 @@ export class PacketComponent implements OnInit{
       if (filteredPacketList && filteredPacketList.length > 0) {
         this.packetsList = filteredPacketList;
         this.displayedPackets = filteredPacketList;
-        console.log('Filtered packets:', this.displayedPackets);
       } else {
         this.obtainPackets();
       }
@@ -83,14 +82,14 @@ export class PacketComponent implements OnInit{
 
   toggleSeleccion(packet: Packet): void {
     packet.seleccionado = !packet.seleccionado;
-    console.log(packet.seleccionado);
   }
 
   confirmarAsignacion(): void {
     this.paquetesSeleccionados = this.packetsList.filter(packet => packet.seleccionado); // Filtra los usuarios seleccionados
-    console.log('Usuarios seleccionados:', this.paquetesSeleccionados);
     if (this.paquetesSeleccionados.length === 0) {
-      alert('No hay paquetes seleccionados para asignar.');
+       this.toastr.warning('No hay paquetes seleccionados para asignar.', 'Atención',{
+           positionClass: 'toast-top-center'
+        });
       return;
     }
     this.mostrarModal = true; // Muestra el modal
@@ -100,7 +99,9 @@ export class PacketComponent implements OnInit{
     console.log(this.searchTerm);
 
     if (this.paquetesSeleccionados.length === 0) {
-      alert('No hay paquetes seleccionados para asignar.');
+         this.toastr.warning('No hay paquetes seleccionados para asignar.', 'Atención',{
+           positionClass: 'toast-top-center'
+        });
       return;
     }
 
@@ -112,13 +113,12 @@ export class PacketComponent implements OnInit{
     // Ejecutar todas las solicitudes en paralelo
     forkJoin(requests).subscribe({
       next: (responses) => {
-        console.log('Todos los paquetes asignados:', responses);
-        alert('Todos los paquetes han sido asignados correctamente.');
         this.mostrarModal = false; // Oculta el modal
       },
       error: (error) => {
-        console.error('Error al asignar paquetes:', error);
-        alert('Ocurrió un error al asignar algunos paquetes. Revisa la consola para más detalles.');
+        this.toastr.error('Ocurrió un error al asignar algunos paquetes.', 'Error',{
+           positionClass: 'toast-top-center'
+        });
         this.mostrarModal = false; // Oculta el modal
       }
     });
